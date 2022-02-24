@@ -18,13 +18,15 @@ import (
 
 func resourceTrustStore() *schema.Resource {
 	return &schema.Resource{
+		Description:   "JKS trust store generated from one or more PEM encoded certificates.",
 		CreateContext: resourceTrustStoreCreate,
 		ReadContext:   resourceTrustStoreRead,
 		DeleteContext: resourceTrustStoreDelete,
 		Schema: map[string]*schema.Schema{
 			"certificates": {
-				Type:     schema.TypeList,
-				Required: true,
+				Description: "CA certificates or chains to include in generated trust store; in PEM format.",
+				Type:        schema.TypeList,
+				Required:    true,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
 				},
@@ -32,14 +34,16 @@ func resourceTrustStore() *schema.Resource {
 				ForceNew: true,
 			},
 			"password": {
-				Type:     schema.TypeString,
-				Optional: true,
-				Default:  "",
-				ForceNew: true,
+				Description: "Password to secure trust store. Defaults to empty string.",
+				Type:        schema.TypeString,
+				Optional:    true,
+				Default:     "",
+				ForceNew:    true,
 			},
 			"jks": {
-				Type:     schema.TypeString,
-				Computed: true,
+				Description: "JKS trust store data; base64 encoded.",
+				Type:        schema.TypeString,
+				Computed:    true,
 			},
 		},
 	}
