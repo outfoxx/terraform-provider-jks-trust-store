@@ -5,7 +5,11 @@ terraform {
       version = "~> 3.1.0"
     }
     jks = {
-      source  = "hashicorp.com/outfox/jks-trust-store"
+      # Locally compiled provider
+      #source  = "hashicorp.com/outfox/jks-trust-store"
+
+      # Terraform forge hosted provider
+      source  = "outfoxx/jks-trust-store"
       version = "~> 0.1"
     }
   }
@@ -29,7 +33,7 @@ resource "tls_self_signed_cert" "ca" {
   early_renewal_hours   = 3
 
   is_ca_certificate = true
-  allowed_uses      = [
+  allowed_uses = [
     "cert_signing",
     "crl_signing",
   ]

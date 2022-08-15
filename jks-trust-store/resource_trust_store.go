@@ -73,7 +73,7 @@ func resourceTrustStoreCreate(_ context.Context, d *schema.ResourceData, _ inter
 				break
 			} else if block == nil {
 				diags = append(diags, diag.Errorf("chain %d, certificate %d: failed to load PEM", chainIdx, certIdx)...)
-			} else if block.Type != "CERTIFICATE" {
+			} else if (block.Type != "CERTIFICATE") && (block.Type != "EC PRIVATE KEY") {
 				diags = append(diags, diag.Errorf("chain %d, certificate %d: expected CERTIFICATE but found %q", chainIdx, certIdx, block.Type)...)
 			}
 
